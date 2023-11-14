@@ -1,17 +1,22 @@
-// txt2img and img2img tools are created as a row. With Python, we can only create
-// our button before the row, not within the row. This will move the format button
-// into the row.
 onUiLoaded(() => {
-	let txt2img_tools = gradioApp().querySelector("#txt2img_tools");
-	let txt2img_formatter = txt2img_tools.querySelector("#format")
-	let txt2img_tools_row = txt2img_tools.querySelector("div:first-of-type");
-	txt2img_tools_row.insertBefore(txt2img_formatter, txt2img_tools_row.lasttChild);
-	txt2img_formatter.title = "Format prompt";
+	// txt2img and img2img tools are created as a row. With Python, we can only create
+	// our button before the row, not within the row. This will move the format button
+	// into the row.
+	const tools = gradioApp().querySelectorAll('div[id$="_tools"]');
+	for (let i = 0; i < tools.length; i++) {
+		const toolsRow = tools[i].querySelector('div:first-of-type');
+		const formatBtn = tools[i].querySelector('button#format');
+		toolsRow.insertBefore(formatBtn, toolsRow.lasttChild);
+		formatBtn.title = 'Format prompt';
+	}
 
-	let img2img_tools = gradioApp().querySelector("#img2img_tools");
-	let img2img_formatter = img2img_tools.querySelector("#format")
-	let img2img_tools_row = img2img_tools.querySelector("div:first-of-type");
-	img2img_tools_row.insertBefore(img2img_formatter, img2img_tools_row.lastChild);
-	img2img_formatter.title = "Format prompt";
-})
-
+	// Hide Lobe Theme 'Format prompt~🪄' buttons
+	setTimeout(() => {
+		const lobeFormatBtn = gradioApp().querySelectorAll('button[id$="_formatconvert"]');
+		if (lobeFormatBtn) {
+			for (let i = 0; i < lobeFormatBtn.length; ++i) {
+				lobeFormatBtn[i].classList.add('hidden');
+			}
+		}
+	}, 500);
+});
