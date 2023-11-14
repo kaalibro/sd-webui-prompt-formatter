@@ -18,5 +18,5 @@ onUiLoaded(() => {
 				lobeFormatBtn[i].classList.add('hidden');
 			}
 		}
-	}, 500);
+	}, 2000);
 });
