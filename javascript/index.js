@@ -5,11 +5,13 @@ onUiLoaded(() => {
 	let txt2img_tools = gradioApp().querySelector("#txt2img_tools");
 	let txt2img_formatter = txt2img_tools.querySelector("#format")
 	let txt2img_tools_row = txt2img_tools.querySelector("div:first-of-type");
-	txt2img_tools_row.insertBefore(txt2img_formatter, txt2img_tools_row.firstChild)
+	txt2img_tools_row.insertBefore(txt2img_formatter, txt2img_tools_row.lasttChild);
+	txt2img_formatter.title = "Format prompt";
 
 	let img2img_tools = gradioApp().querySelector("#img2img_tools");
 	let img2img_formatter = img2img_tools.querySelector("#format")
 	let img2img_tools_row = img2img_tools.querySelector("div:first-of-type");
-	img2img_tools_row.insertBefore(img2img_formatter, img2img_tools_row.firstChild)
+	img2img_tools_row.insertBefore(img2img_formatter, img2img_tools_row.lastChild);
+	img2img_formatter.title = "Format prompt";
 })
 
