@@ -490,7 +490,7 @@ def on_ui_settings():
         ),
     )
     shared.opts.add_option(
-        "pfromat_bracket2weight",
+        "pformat_bracket2weight",
         shared.OptionInfo(
             True,
             "Convert excessive brackets to weights",
@@ -500,7 +500,7 @@ def on_ui_settings():
         ),
     )
     shared.opts.add_option(
-        "pfromat_space2underscore",
+        "pformat_space2underscore",
         shared.OptionInfo(
             False,
             "Convert spaces to underscores (default: underscore to spaces)",
@@ -516,8 +516,8 @@ def on_ui_settings():
 def sync_settings():
     global SPACE_COMMAS, BRACKET2WEIGHT, SPACE2UNDERSCORE
     SPACE_COMMAS = shared.opts.pformat_space_commas
-    BRACKET2WEIGHT = shared.opts.pfromat_bracket2weight
-    SPACE2UNDERSCORE = shared.opts.pfromat_space2underscore
+    BRACKET2WEIGHT = shared.opts.pformat_bracket2weight
+    SPACE2UNDERSCORE = shared.opts.pformat_space2underscore
 
 
 script_callbacks.on_before_component(on_before_component)
