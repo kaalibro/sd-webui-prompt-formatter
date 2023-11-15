@@ -11,12 +11,13 @@ onUiLoaded(() => {
 	}
 
 	// Hide Lobe Theme 'Format prompt~🪄' buttons
-	setTimeout(() => {
+	const pollInterval = setInterval(() => {
 		const lobeFormatBtn = gradioApp().querySelectorAll('button[id$="_formatconvert"]');
 		if (lobeFormatBtn) {
 			for (let i = 0; i < lobeFormatBtn.length; ++i) {
-				lobeFormatBtn[i].classList.add('hidden');
+				lobeFormatBtn[i].style.display = 'none';
 			}
+			clearInterval(pollInterval);
 		}
-	}, 2000);
+	}, 100);
 });
