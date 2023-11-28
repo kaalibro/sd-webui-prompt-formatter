@@ -10,7 +10,7 @@ Formatting settings
 """
 SPACE_COMMAS = True
 BRACKET2WEIGHT = True
-SPACE2UNDERSCORE = False
+SPACE2UNDERSCORE = "Ignore"
 
 """
 Regex stuff
@@ -393,14 +393,17 @@ def space_to_underscore(prompt: str):
     # We need to look ahead and ignore any spaces/underscores within network tokens
     # INPUT     <lora:chicken butt>, multiple subjects
     # OUTPUT    <lora:chicken butt>, multiple_subjects
-    match = (
-        r"(?<!BREAK) +(?!BREAK|[^<]*>)"
-        if SPACE2UNDERSCORE
-        else r"(?<!BREAK|_)_(?!_|BREAK|[^<]*>)"
-    )
-    replace = "_" if SPACE2UNDERSCORE else " "
-
     tokens: str = tokenize(prompt)
+
+    if SPACE2UNDERSCORE == "Ignore":
+        return ",".join(tokens)
+    else:
+        match = (
+            r"(?<!BREAK) +(?!BREAK|[^<]*>)"
+            if SPACE2UNDERSCORE == "Spaces to underscores"
+            else r"(?<!BREAK|_)_(?!_|BREAK|[^<]*>)"
+        )
+        replace = "_" if SPACE2UNDERSCORE == "Spaces to underscores" else " "
 
     return ",".join(map(lambda t: re.sub(match, replace, t), tokens))
 
@@ -502,10 +505,10 @@ def on_ui_settings():
     shared.opts.add_option(
         "pformat_space2underscore",
         shared.OptionInfo(
-            False,
-            "Convert spaces to underscores (default: underscore to spaces)",
-            gr.Checkbox,
-            {"interactive": True},
+            "Ignore",
+            "Convert spaces to underscores",
+            gr.Radio,
+            component_args={"choices": ["Ignore", "Spaces to underscores", "Underscores to spaces"]},
             section=section,
         ),
     )
